@@ -1,0 +1,12 @@
+Makefile
+.deps/
+*.o
+*.lo
+/conf11055.sh
+/config.log
+/config.status
+/cvconfig.h
+/libtool
+/opencv.pc
+/opencv.spec
+/stamp-h1
