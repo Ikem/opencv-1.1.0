@@ -1,0 +1,4 @@
+#! /bin/sh
+
+./configure --host=bfin-uclinux --without-gtk --without-v4l --enable-static --without-swig --without-python --without-octave
+make
