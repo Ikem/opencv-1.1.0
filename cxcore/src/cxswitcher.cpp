@@ -57,7 +57,7 @@
 #if defined WIN32 || defined WIN64
 #include <windows.h>
 #else
-#include <dlfcn.h>
+//#include <dlfcn.h>
 #include <sys/time.h>
 #endif
 
@@ -224,7 +224,7 @@ icvInitProcessorInfo( CvProcessorInfo* cpu_info )
     cpu_info->model = CV_PROC_GENERIC;
 #else
     cpu_info->model = CV_PROC_IA32_GENERIC;
-    
+
     // reading /proc/cpuinfo file (proc file system must be supported)
     FILE *file = fopen( "/proc/cpuinfo", "r" );
 
@@ -434,7 +434,7 @@ icvUpdatePluginFuncTab( CvPluginFuncInfo* func_tab )
                     else
                         strcpy( name, name_start );
 
-                    addr = (uchar*)GetProcAddress( plugins[idx].handle, name );
+                    //addr = (uchar*)GetProcAddress( plugins[idx].handle, name );
                     if( addr )
                         break;
                 }
@@ -544,7 +544,7 @@ cvUseOptimized( int load_flag )
     CvModuleInfo* module;
     const CvProcessorInfo* cpu_info = icvGetProcessorInfo();
     int arch = CV_GET_PROC_ARCH(cpu_info->model);
-    
+
     // TODO: implement some more elegant way
     // to find the latest and the greatest IPP/MKL libraries
     static const char* opencv_sfx[] = { "100", "099", "097", 0 };
@@ -577,7 +577,7 @@ cvUseOptimized( int load_flag )
         // unload previously loaded optimized modules
         if( plugins[i].handle )
         {
-            FreeLibrary( plugins[i].handle );
+            //FreeLibrary( plugins[i].handle );
             plugins[i].handle = 0;
         }
 
@@ -604,7 +604,7 @@ cvUseOptimized( int load_flag )
                     plugins[i].basename, *suffix );
 
                 ICV_PRINTF(("loading %s...\n", plugins[i].name ));
-                plugins[i].handle = LoadLibrary( plugins[i].name );
+                //plugins[i].handle = LoadLibrary( plugins[i].name );
                 if( plugins[i].handle != 0 )
                 {
                     ICV_PRINTF(("%s loaded\n", plugins[i].name ));
@@ -612,12 +612,12 @@ cvUseOptimized( int load_flag )
                     break;
                 }
                 #ifndef WIN32
-                // temporary workaround for MacOSX 
+                // temporary workaround for MacOSX
                 sprintf( plugins[i].name, DLL_PREFIX "%s%s" DLL_DEBUG_FLAG ".dylib",
                     plugins[i].basename, *suffix );
 
                 ICV_PRINTF(("loading %s...\n", plugins[i].name ));
-                plugins[i].handle = LoadLibrary( plugins[i].name );
+                //plugins[i].handle = LoadLibrary( plugins[i].name );
                 if( plugins[i].handle != 0 )
                 {
                     ICV_PRINTF(("%s loaded\n", plugins[i].name ));
