@@ -1,0 +1,13 @@
+#! /bin/sh
+
+# host
+./configure --without-gtk --without-v4l --enable-static --without-swig --without-python --without-octave
+make
+mkdir -p library/host
+cp cv/src/.libs/libcv.a cxcore/src/.libs/libcxcore.a cvaux/src/.libs/libcvaux.a library/host
+
+# target
+./configure --host=bfin-uclinux --without-gtk --without-v4l --enable-static --without-swig --without-python --without-octave
+make
+mkdir -p library/target
+cp cv/src/.libs/libcv.a cxcore/src/.libs/libcxcore.a cvaux/src/.libs/libcvaux.a library/target

@@ -1,4 +1,0 @@
-#! /bin/sh
-
-./configure --without-gtk --without-v4l --enable-static --without-swig --without-python --without-octave
-make
